@@ -3,358 +3,437 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Punta Santiago - Torre Departamental de Lujo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Punta Santiago — Torre Departamental de Lujo</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    
-  </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav id="mainNav">
     <div class="nav-logo">Punta Santiago</div>
     <ul class="nav-links">
-      <li><a href="#renders">Renders</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#amenidades">Amenidades</a></li>
       <li><a href="#tour">Recorrido</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar Cita</button>
+    <a class="nav-cta" href="#contacto">Agendar cita</a>
   </nav>
 
-  <!-- PROGRESS DOTS -->
-  <div class="progress-dots" id="progressDots">
-    <div class="progress-dot active" data-slide="0"></div>
-    <div class="progress-dot" data-slide="1"></div>
-    <div class="progress-dot" data-slide="2"></div>
-    <div class="progress-dot" data-slide="3"></div>
-    <div class="progress-dot" data-slide="4"></div>
+  <!-- HERO NAV — botones de slide -->
+  <div class="hero-nav" id="heroNav">
+    <button class="hn-btn is-active" data-slide="0" onclick="scrollToSlide(0)">
+      <span class="hn-label">Inicio</span>
+      <span class="hn-dot"></span>
+    </button>
+    <button class="hn-btn" data-slide="1" onclick="scrollToSlide(1)">
+      <span class="hn-label">Ubicación</span>
+      <span class="hn-dot"></span>
+    </button>
+    <button class="hn-btn" data-slide="2" onclick="scrollToSlide(2)">
+      <span class="hn-label">Arquitectura</span>
+      <span class="hn-dot"></span>
+    </button>
+    <button class="hn-btn" data-slide="3" onclick="scrollToSlide(3)">
+      <span class="hn-label">Amenidades</span>
+      <span class="hn-dot"></span>
+    </button>
+    <button class="hn-btn" data-slide="4" onclick="scrollToSlide(4)">
+      <span class="hn-label">Interiores</span>
+      <span class="hn-dot"></span>
+    </button>
   </div>
 
-  <!-- VIDEO SCROLL SECTION -->
+  <!-- HERO — SCROLL STORYTELLING -->
   <div id="video-scroll-wrapper">
     <div id="video-sticky">
-
-      <!-- video / imagen de fondo -->
       <div id="video-bg-fallback">
-        <!-- Imagen de fachada - vista 1 -->
-        <img id="scene-img" src="https://picsum.photos/seed/manzanillo-tower-coast/1920/1080" 
-             alt="Torre Punta Santiago" 
-             style="width:100%;height:100%;object-fit:cover;object-position:center;transition:opacity 0.6s ease;" />
+        <img id="scene-img"
+          src="https://picsum.photos/seed/manzanillo-tower-coast/1920/1080"
+          alt="Torre Punta Santiago"
+          style="width:100%;height:100%;object-fit:cover;transition:opacity 0.5s ease;" />
       </div>
+      <div class="video-overlay"></div>
 
-      <div class="video-overlay" id="videoOverlay"></div>
-
-      <!-- SLIDE 1: Fachada -->
       <div class="slide-panel active" id="slide-0">
         <div class="slide-content">
           <div class="slide-tag">Manzanillo, Colima</div>
           <h1 class="slide-headline">Tu estilo de vida<br><em>a 50 metros del mar</em></h1>
           <p class="slide-body">Solo 14 departamentos exclusivos en Manzanillo. Una torre diseñada para quienes exigen lo mejor de la vida costera.</p>
         </div>
-        <div class="scroll-indicator">
-          <div class="scroll-line"></div>
-        </div>
+        <div class="scroll-indicator"><div class="scroll-line"></div></div>
       </div>
 
-      <!-- SLIDE 2: Ubicacion -->
       <div class="slide-panel" id="slide-1">
         <div class="slide-content">
-          <div class="slide-tag">Ubicacion Estrategica</div>
-          <h2 class="slide-headline">Inversion inteligente<br>en el puerto del futuro</h2>
-          <p class="slide-body">Con el boom del nearshoring y el Nuevo Puerto, Manzanillo proyecta excelentes plusvalias. Punta Santiago no es solo un departamento, es una inversion calculada con vision de largo plazo.</p>
+          <div class="slide-tag">Ubicación estratégica</div>
+          <h2 class="slide-headline">Inversión inteligente<br>en el puerto del futuro</h2>
+          <p class="slide-body">Con el boom del nearshoring y el Nuevo Puerto, Manzanillo proyecta plusvalías extraordinarias. Una inversión calculada con visión de largo plazo.</p>
         </div>
       </div>
 
-      <!-- SLIDE 3: Close Up -->
       <div class="slide-panel" id="slide-2">
         <div class="slide-content">
           <div class="slide-tag">Arquitectura</div>
-          <h2 class="slide-headline">Diseno de baja densidad.<br><em>Solo 14 privilegiados.</em></h2>
-          <p class="slide-body">Una torre que garantiza exclusividad, privacidad y maximo confort. Cada detalle arquitectonico fue concebido para destacar en el perfil costero de Manzanillo.</p>
+          <h2 class="slide-headline">Diseño de baja densidad.<br><em>Solo 14 privilegiados.</em></h2>
+          <p class="slide-body">Una torre que garantiza exclusividad, privacidad y máximo confort. Cada detalle arquitectónico fue concebido para destacar en el perfil costero.</p>
         </div>
       </div>
 
-      <!-- SLIDE 4: Amenidades -->
       <div class="slide-panel" id="slide-3">
         <div class="slide-content">
           <div class="slide-tag">Amenidades</div>
           <h2 class="slide-headline">Primer nivel,<br>a pasos de la playa</h2>
-          <p class="slide-body">Alberca infinity, asadores, lobby de autor. El equilibrio perfecto para vivir, vacacionar o generar altas rentas en el mercado turistico de la costa.</p>
+          <p class="slide-body">Alberca infinity, asadores, lobby de autor. El equilibrio perfecto para vivir, vacacionar o generar altas rentas en el mercado turístico.</p>
         </div>
       </div>
 
-      <!-- SLIDE 5: Interiores -->
       <div class="slide-panel" id="slide-4">
         <div class="slide-content">
           <div class="slide-tag">Interiores</div>
-          <h2 class="slide-headline">Inteligencia espacial<br>en cada rincon</h2>
-          <p class="slide-body">Distribucion que maximiza la amplitud. Iluminacion natural y acabados seleccionados para el clima costero. Sala, cocina integrada, recamaras y banos disenados con precision.</p>
+          <h2 class="slide-headline">Inteligencia espacial<br>en cada rincón</h2>
+          <p class="slide-body">Distribución que maximiza la amplitud. Iluminación natural y acabados seleccionados para el clima costero.</p>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- RENDERS ESTATICOS -->
-  <section class="section-renders" id="renders">
-    <div style="max-width:1100px; margin:0 auto;">
-      <div class="section-heading-block reveal">
-        <div class="section-label">Galeria</div>
-        <h2 class="section-title">Cada espacio,<br>pensado para ti</h2>
-      </div>
+  <!-- MANIFESTO -->
+  <section class="section-manifesto">
+    <div class="manifesto-inner">
+      <div class="manifesto-eyebrow">Principio de diseño</div>
+      <p class="manifesto-text">
+        <span class="m-line">Diseñado a 50 metros del Pacífico.</span>
+        <span class="m-line">Concebido para los que</span>
+        <span class="m-line">no aceptan segundos lugares.</span>
+      </p>
+    </div>
+  </section>
 
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-card reveal">
-          <img src="https://picsum.photos/seed/ps-cocina-lujo/760/1000" alt="Cocina de diseno" loading="lazy" />
-          <div class="carousel-card-overlay">
-            <div class="carousel-card-title">Cocinas de diseno</div>
-            <div class="carousel-card-sub">Acabados premium de importacion</div>
-          </div>
-        </div>
-        <div class="carousel-card reveal">
-          <img src="https://picsum.photos/seed/ps-recamara-master/760/1000" alt="Recamara principal" loading="lazy" />
-          <div class="carousel-card-overlay">
-            <div class="carousel-card-title">Recamara principal</div>
-            <div class="carousel-card-sub">Vista al mar, luz natural</div>
-          </div>
-        </div>
-        <div class="carousel-card reveal">
-          <img src="https://picsum.photos/seed/ps-bano-spa/760/1000" alt="Bano spa" loading="lazy" />
-          <div class="carousel-card-overlay">
-            <div class="carousel-card-title">Banos tipo spa</div>
-            <div class="carousel-card-sub">Marmol y accesorios de alto diseno</div>
-          </div>
-        </div>
-        <div class="carousel-card reveal">
-          <img src="https://picsum.photos/seed/ps-sala-terraza/760/1000" alt="Sala terraza" loading="lazy" />
-          <div class="carousel-card-overlay">
-            <div class="carousel-card-title">Sala con terraza</div>
-            <div class="carousel-card-sub">Conexion interior - exterior</div>
-          </div>
-        </div>
-        <div class="carousel-card reveal">
-          <img src="https://picsum.photos/seed/ps-alberca-infinity/760/1000" alt="Alberca infinity" loading="lazy" />
-          <div class="carousel-card-overlay">
-            <div class="carousel-card-title">Alberca infinity</div>
-            <div class="carousel-card-sub">Con vista panoramica al Pacifico</div>
-          </div>
-        </div>
-        <div class="carousel-card reveal">
-          <img src="https://picsum.photos/seed/ps-lobby-arquitectonico/760/1000" alt="Lobby" loading="lazy" />
-          <div class="carousel-card-overlay">
-            <div class="carousel-card-title">Lobby de autor</div>
-            <div class="carousel-card-sub">Primera impresion, siempre impecable</div>
-          </div>
-        </div>
+  <!-- STATS -->
+  <section class="section-stats" id="stats">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" data-end="14" data-suffix="">0</div>
+        <div class="stat-label">Departamentos exclusivos</div>
       </div>
-
-      <!-- Interiores detalle -->
-      <div style="margin-top: 5rem;" class="reveal">
-        <div class="section-label">Planta y Distribucion</div>
-        <h2 class="section-title" style="margin-bottom:0.5rem;">Espacios que respiran</h2>
+      <div class="stat-card">
+        <div class="stat-num" data-end="50" data-suffix="m">0m</div>
+        <div class="stat-label">Del Pacífico</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-num" data-end="100" data-suffix="%">0%</div>
+        <div class="stat-label">Acabados premium</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-end="2025" data-start="2020" data-suffix="">2020</div>
+        <div class="stat-label">Entrega estimada</div>
+      </div>
+    </div>
+  </section>
 
-      <div class="interiores-grid">
-        <div class="interior-card interior-main reveal">
-          <img class="interior-img" src="https://picsum.photos/seed/ps-sala-amplia-costera/800/700" alt="Sala principal" loading="lazy" />
-          <div class="interior-card-label">Sala - Comedor</div>
+  <!-- GALERÍA -->
+  <section class="section-galeria" id="galeria">
+    <div class="sc">
+      <div class="sc-header">
+        <div class="sec-label">Galería</div>
+        <h2 class="sec-title">Cada espacio,<br>pensado para ti</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-card gc-tall">
+          <img src="https://picsum.photos/seed/ps-sala-amplia-costera/800/1100" alt="Sala principal" loading="lazy" />
+          <div class="gc-info">
+            <div class="gc-title">Sala — Comedor</div>
+            <div class="gc-sub">Vista al mar, luz natural</div>
+          </div>
         </div>
-        <div class="interior-card reveal">
-          <img class="interior-img" src="https://picsum.photos/seed/ps-cocina-blanca-moderna/600/400" alt="Cocina" loading="lazy" style="min-height:200px;"/>
-          <div class="interior-card-label">Cocina integral</div>
+        <div class="gallery-card">
+          <img src="https://picsum.photos/seed/ps-cocina-lujo/760/500" alt="Cocina" loading="lazy" />
+          <div class="gc-info">
+            <div class="gc-title">Cocina de diseño</div>
+            <div class="gc-sub">Acabados premium de importación</div>
+          </div>
         </div>
-        <div class="interior-card reveal">
-          <img class="interior-img" src="https://picsum.photos/seed/ps-recamara-secundaria-playa/600/400" alt="Recamara" loading="lazy" style="min-height:200px;"/>
-          <div class="interior-card-label">Recamara</div>
+        <div class="gallery-card">
+          <img src="https://picsum.photos/seed/ps-recamara-master/760/500" alt="Recámara" loading="lazy" />
+          <div class="gc-info">
+            <div class="gc-title">Recámara principal</div>
+            <div class="gc-sub">Vista panorámica al Pacífico</div>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://picsum.photos/seed/ps-bano-spa/760/500" alt="Baño spa" loading="lazy" />
+          <div class="gc-info">
+            <div class="gc-title">Baños tipo spa</div>
+            <div class="gc-sub">Mármol y alto diseño</div>
+          </div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://picsum.photos/seed/ps-alberca-infinity/760/500" alt="Alberca" loading="lazy" />
+          <div class="gc-info">
+            <div class="gc-title">Alberca infinity</div>
+            <div class="gc-sub">Horizonte sin límites</div>
+          </div>
+        </div>
+        <div class="gallery-card gc-wide">
+          <img src="https://picsum.photos/seed/ps-lobby-arquitectonico/1400/700" alt="Lobby" loading="lazy" />
+          <div class="gc-info">
+            <div class="gc-title">Lobby de autor</div>
+            <div class="gc-sub">Primera impresión, siempre impecable</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- AMENIDADES DETALLE -->
-  <section class="section-static" style="padding: 7rem 3rem;">
-    <div style="max-width:1100px; margin:0 auto;">
-      <div class="section-heading-block reveal">
-        <div class="section-label">Lo que incluye</div>
-        <h2 class="section-title">Amenidades que<br>elevan la experiencia</h2>
+  <!-- AMENIDADES -->
+  <section class="section-amenidades" id="amenidades">
+    <div class="sc">
+      <div class="sc-header">
+        <div class="sec-label">Lo que incluye</div>
+        <h2 class="sec-title">Amenidades que<br>elevan la experiencia</h2>
       </div>
+      <div class="am-grid">
 
-      <div class="amenidades-grid">
-        <div class="amenidad-item reveal">
-          <svg class="amenidad-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
-            <ellipse cx="16" cy="20" rx="12" ry="6"/>
-            <path d="M4 20 Q4 10 16 10 Q28 10 28 20"/>
-            <line x1="16" y1="10" x2="16" y2="4"/>
-          </svg>
-          <div class="amenidad-name">Alberca Infinity</div>
-          <div class="amenidad-desc">Vista panoramica al Pacifico. Diseno que fusiona el agua con el horizonte marino.</div>
+        <div class="am-card">
+          <div class="am-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="16" cy="20" rx="12" ry="6"/>
+              <path d="M4 20 Q4 10 16 10 Q28 10 28 20"/>
+              <line x1="16" y1="10" x2="16" y2="4"/>
+            </svg>
+          </div>
+          <div class="am-body">
+            <div class="am-name">Alberca Infinity</div>
+            <div class="am-desc">Vista panorámica al Pacífico. Diseño que fusiona el agua con el horizonte marino.</div>
+          </div>
         </div>
-        <div class="amenidad-item reveal">
-          <svg class="amenidad-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
-            <rect x="6" y="16" width="20" height="10" rx="1"/>
-            <path d="M10 16 V8 Q10 5 16 5 Q22 5 22 8 V16"/>
-            <circle cx="16" cy="11" r="2"/>
-          </svg>
-          <div class="amenidad-name">Lobby de Autor</div>
-          <div class="amenidad-desc">Diseno arquitectonico con materiales de primera. La llegada a casa como experiencia.</div>
+
+        <div class="am-card">
+          <div class="am-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+              <rect x="6" y="16" width="20" height="10" rx="1"/>
+              <path d="M10 16 V8 Q10 5 16 5 Q22 5 22 8 V16"/>
+              <circle cx="16" cy="11" r="2"/>
+            </svg>
+          </div>
+          <div class="am-body">
+            <div class="am-name">Lobby de Autor</div>
+            <div class="am-desc">Diseño arquitectónico con materiales de primera. La llegada a casa como experiencia.</div>
+          </div>
         </div>
-        <div class="amenidad-item reveal">
-          <svg class="amenidad-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M6 24 Q6 18 12 16 L20 16 Q26 18 26 24"/>
-            <circle cx="16" cy="10" r="4"/>
-            <line x1="8" y1="24" x2="24" y2="24"/>
-          </svg>
-          <div class="amenidad-name">Area de Asadores</div>
-          <div class="amenidad-desc">Espacios sociales equipados para el entretenimiento al aire libre con vista al mar.</div>
+
+        <div class="am-card">
+          <div class="am-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M6 24 Q6 18 12 16 L20 16 Q26 18 26 24"/>
+              <circle cx="16" cy="10" r="4"/>
+              <line x1="8" y1="24" x2="24" y2="24"/>
+            </svg>
+          </div>
+          <div class="am-body">
+            <div class="am-name">Área de Asadores</div>
+            <div class="am-desc">Espacios sociales equipados para el entretenimiento al aire libre con vista al mar.</div>
+          </div>
         </div>
-        <div class="amenidad-item reveal">
-          <svg class="amenidad-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
-            <rect x="4" y="8" width="24" height="18" rx="2"/>
-            <path d="M4 13 H28"/>
-            <circle cx="10" cy="10.5" r="1"/>
-            <circle cx="16" cy="10.5" r="1"/>
-            <circle cx="22" cy="10.5" r="1"/>
-          </svg>
-          <div class="amenidad-name">Seguridad 24/7</div>
-          <div class="amenidad-desc">Acceso controlado, camara de seguridad y concierge para la tranquilidad de los residentes.</div>
+
+        <div class="am-card">
+          <div class="am-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+              <rect x="4" y="8" width="24" height="18" rx="2"/>
+              <path d="M4 13 H28"/>
+              <circle cx="10" cy="10.5" r="1"/>
+              <circle cx="16" cy="10.5" r="1"/>
+              <circle cx="22" cy="10.5" r="1"/>
+            </svg>
+          </div>
+          <div class="am-body">
+            <div class="am-name">Seguridad 24/7</div>
+            <div class="am-desc">Acceso controlado, cámaras de seguridad y concierge para la tranquilidad de los residentes.</div>
+          </div>
         </div>
-        <div class="amenidad-item reveal">
-          <svg class="amenidad-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
-            <rect x="6" y="6" width="20" height="20" rx="2"/>
-            <line x1="12" y1="6" x2="12" y2="26"/>
-            <line x1="20" y1="6" x2="20" y2="26"/>
-            <line x1="6" y1="14" x2="26" y2="14"/>
-            <line x1="6" y1="20" x2="26" y2="20"/>
-          </svg>
-          <div class="amenidad-name">Estacionamiento</div>
-          <div class="amenidad-desc">Cajones privados cubiertos. Espacio adicional para visitas dentro del conjunto.</div>
+
+        <div class="am-card">
+          <div class="am-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+              <rect x="6" y="6" width="20" height="20" rx="2"/>
+              <line x1="12" y1="6" x2="12" y2="26"/>
+              <line x1="20" y1="6" x2="20" y2="26"/>
+              <line x1="6" y1="14" x2="26" y2="14"/>
+              <line x1="6" y1="20" x2="26" y2="20"/>
+            </svg>
+          </div>
+          <div class="am-body">
+            <div class="am-name">Estacionamiento Privado</div>
+            <div class="am-desc">Cajones cubiertos por departamento. Espacio adicional para visitas dentro del conjunto.</div>
+          </div>
         </div>
-        <div class="amenidad-item reveal">
-          <svg class="amenidad-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
-            <path d="M16 4 L16 28"/>
-            <path d="M4 16 Q4 8 16 4 Q28 8 28 16 Q28 24 16 28 Q4 24 4 16Z"/>
-            <circle cx="16" cy="16" r="3"/>
-          </svg>
-          <div class="amenidad-name">A 50 m del Mar</div>
-          <div class="amenidad-desc">Acceso directo a la playa. Vive con el Pacifico como extension natural de tu hogar.</div>
+
+        <div class="am-card">
+          <div class="am-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M16 4 L16 28"/>
+              <path d="M4 16 Q4 8 16 4 Q28 8 28 16 Q28 24 16 28 Q4 24 4 16Z"/>
+              <circle cx="16" cy="16" r="3"/>
+            </svg>
+          </div>
+          <div class="am-body">
+            <div class="am-name">A 50 m del Mar</div>
+            <div class="am-desc">Acceso directo a la playa. El Pacífico como extensión natural de tu hogar.</div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- RECORRIDO 3D -->
   <section class="section-tour" id="tour">
-    <div class="tour-grid">
-      <div class="tour-embed reveal">
-        <div class="tour-embed-placeholder">
-          <div class="tour-play-btn" onclick="this.innerHTML='<span style=font-size:0.8rem;color:var(--gold);letter-spacing:0.1em>PROXIMAMENTE</span>'">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M8 5L19 12L8 19V5Z" fill="currentColor" style="color:var(--gold)"/>
-            </svg>
+    <div class="sc">
+      <div class="tour-grid">
+        <div class="tour-embed">
+          <div class="tour-inner" id="tourInner">
+            <button class="tour-play-btn" id="tourPlayBtn" aria-label="Reproducir recorrido">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M8 5L19 12L8 19V5Z" fill="currentColor"/>
+              </svg>
+            </button>
+            <span class="tour-hint">Recorrido 3D interactivo</span>
           </div>
-          <span style="font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,250,248,0.4);">Recorrido 3D interactivo</span>
+        </div>
+        <div class="tour-text">
+          <div class="sec-label">Recorrido virtual</div>
+          <h2 class="sec-title">Explora Punta Santiago<br>sin salir de casa</h2>
+          <p class="tour-body">Recorre cada espacio en alta definición. Conoce la distribución, los acabados y las vistas desde la comodidad de donde estés. El recorrido 3D estará disponible muy pronto.</p>
+          <a href="#contacto" class="btn-outline">Solicitar acceso anticipado</a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="tour-text reveal">
-        <div class="section-label">Recorrido virtual</div>
-        <h2>Explora Punta Santiago<br>sin salir de casa</h2>
-        <p>Recorre cada espacio en alta definicion. Conoce la distribucion, los acabados y las vistas desde la comodidad de donde estes. El recorrido 3D estara disponible muy pronto.</p>
-        <a href="#contacto" class="btn-outline-gold">Solicitar acceso anticipado</a>
+  <!-- UBICACIÓN -->
+  <section class="section-ubicacion" id="ubicacion">
+    <div class="ub-visual">
+      <img src="https://picsum.photos/seed/manzanillo-aerial-coast-port/1400/900" alt="Vista aérea Manzanillo" loading="lazy" />
+      <div class="ub-badge">
+        <span class="ub-dot"></span>
+        Barra de Santiago, Manzanillo
+      </div>
+    </div>
+    <div class="ub-content">
+      <div class="sec-label">Ubicación</div>
+      <h2 class="sec-title">El puerto<br>del futuro</h2>
+      <p class="ub-text">Manzanillo es el puerto comercial más activo de México. Con la expansión del Nuevo Puerto y el auge del nearshoring, la ciudad proyecta un crecimiento económico sin precedentes — y con él, plusvalías extraordinarias para los inversores más visionarios.</p>
+      <div class="ub-stats">
+        <div class="ub-stat">
+          <div class="ub-stat-num">1°</div>
+          <div class="ub-stat-label">Puerto comercial de México</div>
+        </div>
+        <div class="ub-stat">
+          <div class="ub-stat-num">+40%</div>
+          <div class="ub-stat-label">Crecimiento proyectado</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- CONTACTO -->
-  <section class="section-contact" id="contacto">
-    <div class="contact-grid">
-      <div class="contact-left reveal">
-        <div class="section-label" style="color:var(--gold-muted);">Hablemos</div>
-        <h2>Reserva tu lugar<br>entre los 14</h2>
-        <p>El cupo es limitado por diseno. Agenda una cita para conocer disponibilidad, precios y condiciones de preventa. Nuestro equipo te atendera con toda la informacion.</p>
+  <section class="section-contacto" id="contacto">
+    <div class="sc">
+      <div class="sc-header sc-header--center">
+        <div class="sec-label">Hablemos</div>
+        <h2 class="sec-title">Reserva tu lugar<br>entre los 14</h2>
+        <p class="ct-sub">El cupo es limitado por diseño. Contáctanos para conocer disponibilidad y condiciones de preventa.</p>
+      </div>
+      <div class="ct-cards">
 
-        <div class="contact-details">
-          <div class="contact-detail">
-            <span class="contact-detail-label">Ubicacion</span>
-            <span class="contact-detail-value">Barra de Santiago, Manzanillo, Colima</span>
+        <a class="ct-card" href="tel:+523141284473">
+          <div class="ct-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 10.5 19.79 19.79 0 01.77 1.9 2 2 0 012.75 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
           </div>
-          <div class="contact-detail">
-            <span class="contact-detail-label">Telefono</span>
-            <span class="contact-detail-value">+52 (314) 128-4473</span>
+          <div class="ct-card-body">
+            <div class="ct-card-label">Teléfono</div>
+            <div class="ct-card-value">+52 (314) 128-4473</div>
           </div>
-          <div class="contact-detail">
-            <span class="contact-detail-label">Correo</span>
-            <span class="contact-detail-value">ventas@puntasantiago.mx</span>
+          <span class="ct-card-arrow">→</span>
+        </a>
+
+        <a class="ct-card" href="mailto:ventas@puntasantiago.mx">
+          <div class="ct-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
           </div>
-          <div class="contact-detail">
-            <span class="contact-detail-label">Horario de atencion</span>
-            <span class="contact-detail-value">Lun - Sab, 9:00 - 19:00 hrs</span>
+          <div class="ct-card-body">
+            <div class="ct-card-label">Correo electrónico</div>
+            <div class="ct-card-value">ventas@puntasantiago.mx</div>
+          </div>
+          <span class="ct-card-arrow">→</span>
+        </a>
+
+        <a class="ct-card" href="#ubicacion">
+          <div class="ct-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="ct-card-body">
+            <div class="ct-card-label">Ubicación</div>
+            <div class="ct-card-value">Barra de Santiago, Manzanillo</div>
+          </div>
+          <span class="ct-card-arrow">→</span>
+        </a>
+
+        <div class="ct-card ct-card--static">
+          <div class="ct-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+          </div>
+          <div class="ct-card-body">
+            <div class="ct-card-label">Horario de atención</div>
+            <div class="ct-card-value">Lun — Sáb, 9:00 — 19:00</div>
           </div>
         </div>
-      </div>
 
-      <div class="contact-right reveal">
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="nombre">Nombre</label>
-              <input class="form-input" id="nombre" type="text" placeholder="Tu nombre" required />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="apellido">Apellido</label>
-              <input class="form-input" id="apellido" type="text" placeholder="Tu apellido" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="email">Correo electronico</label>
-            <input class="form-input" id="email" type="email" placeholder="correo@ejemplo.com" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="telefono">Telefono</label>
-            <input class="form-input" id="telefono" type="tel" placeholder="+52 (___) ___-____" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="interes">Interes principal</label>
-            <select class="form-select" id="interes">
-              <option value="">Selecciona una opcion</option>
-              <option>Uso personal / residencia</option>
-              <option>Inversion / renta vacacional</option>
-              <option>Segunda residencia</option>
-              <option>Solo informacion</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="mensaje">Mensaje (opcional)</label>
-            <textarea class="form-textarea" id="mensaje" placeholder="Cuentanos mas sobre lo que buscas..."></textarea>
-          </div>
-          <button type="submit" class="form-submit" id="submitBtn">Enviar solicitud</button>
-        </form>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Punta Santiago</div>
-    <div class="footer-copy">2025 Punta Santiago. Manzanillo, Colima. Todos los derechos reservados.</div>
+    <div class="footer-inner">
+      <div class="footer-logo">Punta Santiago</div>
+      <div class="footer-copy">© 2025 Punta Santiago. Manzanillo, Colima.</div>
+      <nav class="footer-nav">
+        <a href="#galeria">Galería</a>
+        <a href="#amenidades">Amenidades</a>
+        <a href="#tour">Recorrido</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
   </footer>
 
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // ---- CONFIGURACION DE SLIDES ----
+    // ---- HERO SLIDES ----
     const slides = document.querySelectorAll('.slide-panel');
-    const dots = document.querySelectorAll('.progress-dot');
-    const totalSlides = slides.length;
+    const hnBtns = document.querySelectorAll('.hn-btn');
+    const total  = slides.length;
+    const heroNav = document.getElementById('heroNav');
 
-    // Imagenes por slide (usando picsum con seeds descriptivos)
     const slideImages = [
       'https://picsum.photos/seed/manzanillo-tower-facade-beach/1920/1080',
       'https://picsum.photos/seed/manzanillo-aerial-coast-map/1920/1080',
@@ -362,106 +441,145 @@
       'https://picsum.photos/seed/infinity-pool-resort-amenities/1920/1080',
       'https://picsum.photos/seed/luxury-interior-living-ocean/1920/1080',
     ];
-
     const sceneImg = document.getElementById('scene-img');
     let currentSlide = 0;
 
-    function activateSlide(index) {
-      if (index === currentSlide && slides[index].classList.contains('active')) return;
-
-      // fade out imagen
+    function activateSlide(i) {
+      if (i === currentSlide && slides[i].classList.contains('active')) return;
       sceneImg.style.opacity = '0';
-
-      setTimeout(() => {
-        sceneImg.src = slideImages[index];
-        sceneImg.style.opacity = '1';
-      }, 300);
-
-      slides.forEach((s, i) => {
-        s.classList.toggle('active', i === index);
-      });
-
-      dots.forEach((d, i) => {
-        d.classList.toggle('active', i === index);
-      });
-
-      currentSlide = index;
+      setTimeout(() => { sceneImg.src = slideImages[i]; sceneImg.style.opacity = '1'; }, 280);
+      slides.forEach((s, j) => s.classList.toggle('active', j === i));
+      hnBtns.forEach((b, j) => b.classList.toggle('is-active', j === i));
+      currentSlide = i;
     }
-
-    // GSAP ScrollTrigger para el video scroll
-    const wrapper = document.getElementById('video-scroll-wrapper');
-    const segmentHeight = wrapper.offsetHeight / totalSlides;
 
     ScrollTrigger.create({
       trigger: '#video-scroll-wrapper',
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: false,
-      onUpdate: (self) => {
-        const idx = Math.min(
-          Math.floor(self.progress * totalSlides),
-          totalSlides - 1
-        );
-        activateSlide(idx);
+      start: 'top top', end: 'bottom bottom',
+      onUpdate: self => activateSlide(Math.min(Math.floor(self.progress * total), total - 1))
+    });
+
+    // Show/hide hero nav while in hero section
+    ScrollTrigger.create({
+      trigger: '#video-scroll-wrapper',
+      start: 'top 10%', end: 'bottom bottom',
+      onEnter:      () => heroNav.classList.add('is-visible'),
+      onLeave:      () => heroNav.classList.remove('is-visible'),
+      onEnterBack:  () => heroNav.classList.add('is-visible'),
+      onLeaveBack:  () => heroNav.classList.remove('is-visible'),
+    });
+
+    // Scroll to a specific slide
+    window.scrollToSlide = function(index) {
+      const wrapper = document.getElementById('video-scroll-wrapper');
+      const top = wrapper.getBoundingClientRect().top + window.scrollY;
+      const h   = wrapper.offsetHeight;
+      window.scrollTo({ top: top + (index / total) * h + (index > 0 ? 4 : 0), behavior: 'smooth' });
+    };
+
+    // ---- NAV — cambia de oscuro (hero) a claro (resto) ----
+    const mainNav = document.getElementById('mainNav');
+    const heroWrapper = document.getElementById('video-scroll-wrapper');
+
+    function updateNav() {
+      const heroBottom = heroWrapper.offsetTop + heroWrapper.offsetHeight;
+      mainNav.classList.toggle('nav-light', window.scrollY >= heroBottom - 20);
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // ---- MANIFESTO ----
+    gsap.from('.manifesto-eyebrow', {
+      opacity: 0, y: 16, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: '.section-manifesto', start: 'top 78%' }
+    });
+    gsap.from('.m-line', {
+      opacity: 0, y: 40, duration: 1.1, ease: 'power3.out', stagger: 0.22,
+      scrollTrigger: { trigger: '.manifesto-text', start: 'top 82%' }
+    });
+
+    // ---- STATS COUNT-UP ----
+    function countUp(el, start, end, suffix, ms) {
+      const t0 = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - t0) / ms, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(start + (end - start) * e) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+
+    ScrollTrigger.create({
+      trigger: '#stats', start: 'top 80%', once: true,
+      onEnter: () => {
+        gsap.from('.stat-card', { opacity: 0, y: 28, duration: 0.7, ease: 'power2.out', stagger: 0.1 });
+        document.querySelectorAll('.stat-num').forEach(el => {
+          const end    = +el.dataset.end;
+          const start  = el.dataset.start ? +el.dataset.start : (end > 100 ? end - 80 : 0);
+          const suffix = el.dataset.suffix || '';
+          countUp(el, start, end, suffix, 1400);
+        });
       }
     });
 
-    // ---- REVEAL ANIMATIONS ----
-    gsap.utils.toArray('.reveal').forEach((el) => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.85,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        }
+    // ---- GALLERY ----
+    gsap.from('.gallery-card', {
+      opacity: 0, y: 44, duration: 0.9, ease: 'power2.out', stagger: 0.08,
+      scrollTrigger: { trigger: '.gallery-grid', start: 'top 84%' }
+    });
+
+    // ---- AMENIDADES ----
+    gsap.from('.am-card', {
+      opacity: 0, y: 32, duration: 0.75, ease: 'power2.out', stagger: 0.08,
+      scrollTrigger: { trigger: '.am-grid', start: 'top 84%' }
+    });
+
+    // ---- TOUR ----
+    gsap.from('.tour-embed', {
+      opacity: 0, x: -50, duration: 1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.tour-grid', start: 'top 82%' }
+    });
+    gsap.from('.tour-text', {
+      opacity: 0, x: 50, duration: 1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.tour-grid', start: 'top 82%' }
+    });
+
+    // Tour play button
+    document.getElementById('tourPlayBtn').addEventListener('click', function() {
+      document.getElementById('tourInner').innerHTML =
+        '<p style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:#C9A96E;font-family:inherit;">Próximamente</p>';
+    });
+
+    // ---- UBICACIÓN ----
+    gsap.from('.ub-visual', {
+      opacity: 0, x: -60, duration: 1.1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.section-ubicacion', start: 'top 82%' }
+    });
+    gsap.from('.ub-content', {
+      opacity: 0, x: 60, duration: 1.1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.section-ubicacion', start: 'top 82%' }
+    });
+    gsap.from('.ub-stat', {
+      opacity: 0, y: 20, duration: 0.7, ease: 'power2.out', stagger: 0.14,
+      scrollTrigger: { trigger: '.ub-stats', start: 'top 88%' }
+    });
+
+    // ---- CONTACTO ----
+    gsap.from('.ct-card', {
+      opacity: 0, y: 30, duration: 0.75, ease: 'power2.out', stagger: 0.1,
+      scrollTrigger: { trigger: '.ct-cards', start: 'top 84%' }
+    });
+
+    // ---- SECTION HEADERS ----
+    gsap.utils.toArray('.sc-header').forEach(el => {
+      gsap.from([...el.children], {
+        opacity: 0, y: 24, duration: 0.85, ease: 'power2.out', stagger: 0.1,
+        scrollTrigger: { trigger: el, start: 'top 84%' }
       });
     });
 
-    // ---- CAROUSEL DRAG ----
-    const track = document.getElementById('carouselTrack');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    track.addEventListener('mousedown', (e) => {
-      isDown = true;
-      track.style.cursor = 'grabbing';
-      startX = e.pageX - track.offsetLeft;
-      scrollLeft = track.scrollLeft;
-    });
-
-    track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
-    track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
-    track.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      const walk = (x - startX) * 1.4;
-      track.scrollLeft = scrollLeft - walk;
-    });
-
-    // ---- FORM SUBMIT ----
-    function handleSubmit(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      btn.textContent = 'Enviando...';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Solicitud enviada';
-        btn.style.background = '#4a7c59';
-      }, 1400);
-    }
-
-    // Precargar imagenes de slides
-    slideImages.forEach(src => {
-      const img = new Image();
-      img.src = src;
-    });
-
+    // Preload slides
+    slideImages.forEach(s => { const i = new Image(); i.src = s; });
   </script>
 </body>
 </html>
