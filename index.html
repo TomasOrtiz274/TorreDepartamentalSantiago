@@ -426,6 +426,20 @@
   </footer>
 
   <script>
+    // Fijar altura del hero sticky al máximo posible en móvil
+    // (window.innerHeight con address bar visible < viewport real al scrollear)
+    (function() {
+      var el = document.getElementById('video-sticky');
+      var h = Math.max(window.screen.availHeight, window.innerHeight);
+      el.style.height = h + 'px';
+      window.addEventListener('orientationchange', function() {
+        setTimeout(function() {
+          h = Math.max(window.screen.availHeight, window.innerHeight);
+          el.style.height = h + 'px';
+        }, 400);
+      });
+    })();
+
     gsap.registerPlugin(ScrollTrigger);
 
     // ---- HERO SLIDES ----
