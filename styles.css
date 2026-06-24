@@ -179,7 +179,7 @@ nav.nav-light .nav-cta:hover { color: #fff; }
 /* ================================================================
    HERO — SCROLL STORYTELLING
    ================================================================ */
-#video-scroll-wrapper { position: relative; height: 600vh; background: #0a0b0f; }
+#video-scroll-wrapper { position: relative; height: 250vh; background: #0a0b0f; }
 
 #video-sticky {
   position: sticky;
@@ -190,6 +190,16 @@ nav.nav-light .nav-cta:hover { color: #fff; }
 }
 
 #video-bg-fallback { position: absolute; inset: 0; background: #0a0b0f; }
+
+#hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
 
 .video-overlay {
   position: absolute; inset: 0;
@@ -743,7 +753,30 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 0 1.2rem; }
   .nav-links { display: none; }
-  .hero-nav { display: none; }
+
+  /* Hero nav — puntos horizontales en la parte inferior */
+  .hero-nav {
+    display: flex;
+    flex-direction: row;
+    right: auto;
+    left: 50%;
+    top: auto;
+    transform: translateX(-50%);
+    bottom: 2.5rem;
+    gap: 1.2rem;
+  }
+  .hn-label { display: none; }
+  .hn-btn { padding: 0.5rem; }
+
+  /* Gradiente más uniforme para texto centrado */
+  .video-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(8,8,12,0.25) 0%,
+      rgba(8,8,12,0.55) 45%,
+      rgba(8,8,12,0.40) 100%
+    );
+  }
 
   .slide-panel { padding: 2rem 1.8rem; }
   .slide-headline { font-size: 2.1rem; }

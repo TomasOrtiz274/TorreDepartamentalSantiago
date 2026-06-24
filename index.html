@@ -54,10 +54,9 @@
   <div id="video-scroll-wrapper">
     <div id="video-sticky">
       <div id="video-bg-fallback">
-        <img id="scene-img"
-          src="https://picsum.photos/seed/manzanillo-tower-coast/1920/1080"
-          alt="Torre Punta Santiago"
-          style="width:100%;height:100%;object-fit:cover;transition:opacity 0.5s ease;" />
+        <video id="hero-video" muted playsinline preload="auto">
+          <source src="assets/videotorrre.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="video-overlay"></div>
 
@@ -448,23 +447,69 @@
     const total  = slides.length;
     const heroNav = document.getElementById('heroNav');
 
-    const slideImages = [
-      'https://picsum.photos/seed/manzanillo-tower-facade-beach/1920/1080',
-      'https://picsum.photos/seed/manzanillo-aerial-coast-map/1920/1080',
-      'https://picsum.photos/seed/luxury-tower-closeup-terrace/1920/1080',
-      'https://picsum.photos/seed/infinity-pool-resort-amenities/1920/1080',
-      'https://picsum.photos/seed/luxury-interior-living-ocean/1920/1080',
-    ];
-    const sceneImg = document.getElementById('scene-img');
-    let currentSlide = 0;
+    const SLIDE_TIMES   = [0, 5, 16, 19, 19];
+    const heroVideo     = document.getElementById('hero-video');
+    let slideStopTime   = null;
+    let currentSlide    = 0;
+    let targetSlide     = 0;
+    let isTransitioning = false;
+    let rafWatchId      = null;
 
-    function activateSlide(i) {
-      if (i === currentSlide && slides[i].classList.contains('active')) return;
-      sceneImg.style.opacity = '0';
-      setTimeout(() => { sceneImg.src = slideImages[i]; sceneImg.style.opacity = '1'; }, 280);
+    // RAF a 60fps: para el video con precisión de frame (~16ms de overshoot máximo)
+    function watchStop() {
+      if (slideStopTime === null) { rafWatchId = null; return; }
+      if (heroVideo.currentTime >= slideStopTime) {
+        heroVideo.pause();
+        heroVideo.currentTime = slideStopTime;
+        slideStopTime   = null;
+        isTransitioning = false;
+        rafWatchId      = null;
+        if (targetSlide === 3) {
+          heroVideo.playbackRate = 1;
+          heroVideo.play().catch(() => {});
+        }
+        return;
+      }
+      rafWatchId = requestAnimationFrame(watchStop);
+    }
+
+    function showSlide(i) {
       slides.forEach((s, j) => s.classList.toggle('active', j === i));
       hnBtns.forEach((b, j) => b.classList.toggle('is-active', j === i));
       currentSlide = i;
+    }
+
+    function activateSlide(i) {
+      if (i === targetSlide) return;
+      if (isTransitioning && i > targetSlide) return;
+
+      if (i > targetSlide) {
+        const frTime = SLIDE_TIMES[targetSlide];
+        const toTime = SLIDE_TIMES[i];
+        targetSlide  = i;
+        showSlide(i);
+
+        if (i === 4) {
+          slideStopTime   = null;
+          isTransitioning = false;
+        } else {
+          heroVideo.currentTime  = frTime; // seek exacto al inicio de la transición
+          slideStopTime          = toTime;
+          isTransitioning        = true;
+          heroVideo.playbackRate = 1.5;
+          heroVideo.play().catch(() => {});
+          if (rafWatchId) cancelAnimationFrame(rafWatchId);
+          rafWatchId = requestAnimationFrame(watchStop);
+        }
+      } else {
+        if (rafWatchId) { cancelAnimationFrame(rafWatchId); rafWatchId = null; }
+        isTransitioning       = false;
+        targetSlide           = i;
+        slideStopTime         = null;
+        heroVideo.pause();
+        heroVideo.currentTime = SLIDE_TIMES[i];
+        showSlide(i);
+      }
     }
 
     ScrollTrigger.create({
@@ -483,12 +528,20 @@
       onLeaveBack:  () => heroNav.classList.remove('is-visible'),
     });
 
-    // Scroll to a specific slide
+    // Navegar a un slide desde los botones (cancela transición activa y va directo)
     window.scrollToSlide = function(index) {
+      if (rafWatchId) { cancelAnimationFrame(rafWatchId); rafWatchId = null; }
+      isTransitioning = false;
+      slideStopTime   = null;
+      targetSlide     = currentSlide; // resetea al slide visible antes de activar
+
+      activateSlide(index);
+
+      // Salta el scroll a la zona del slide (instant evita triggers intermedios)
       const wrapper = document.getElementById('video-scroll-wrapper');
-      const top = wrapper.getBoundingClientRect().top + window.scrollY;
-      const h   = wrapper.offsetHeight;
-      window.scrollTo({ top: top + (index / total) * h + (index > 0 ? 4 : 0), behavior: 'smooth' });
+      const top     = wrapper.getBoundingClientRect().top + window.scrollY;
+      const h       = wrapper.offsetHeight;
+      window.scrollTo({ top: top + ((index + 0.5) / total) * h, behavior: 'instant' });
     };
 
     // ---- NAV — cambia de oscuro (hero) a claro (resto) ----
@@ -592,8 +645,6 @@
       });
     });
 
-    // Preload slides
-    slideImages.forEach(s => { const i = new Image(); i.src = s; });
   </script>
 </body>
 </html>
