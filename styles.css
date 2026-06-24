@@ -204,8 +204,8 @@ nav.nav-light .nav-cta:hover { color: #fff; }
 .slide-panel {
   position: absolute; inset: 0;
   display: flex;
-  align-items: flex-end;
-  padding: 5rem 5.5rem 6rem;
+  align-items: center;
+  padding: 5rem 5.5rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
@@ -745,7 +745,7 @@ footer {
   .nav-links { display: none; }
   .hero-nav { display: none; }
 
-  .slide-panel { padding: 2rem 1.8rem 3.5rem; }
+  .slide-panel { padding: 2rem 1.8rem; }
   .slide-headline { font-size: 2.1rem; }
   .scroll-indicator { display: none; }
 
