@@ -32,6 +32,7 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+  overflow-x: clip; /* clip no crea scroll container, preserva position:fixed en móvil */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -178,12 +179,13 @@ nav.nav-light .nav-cta:hover { color: #fff; }
 /* ================================================================
    HERO — SCROLL STORYTELLING
    ================================================================ */
-#video-scroll-wrapper { position: relative; height: 600vh; }
+#video-scroll-wrapper { position: relative; height: 600vh; background: #0a0b0f; }
 
 #video-sticky {
   position: sticky;
   top: 0;
-  height: 100dvh;
+  height: 100vh;
+  height: 100lvh; /* lvh = viewport grande (sin chrome del browser), evita gaps al ocultar address bar */
   overflow: hidden;
 }
 
